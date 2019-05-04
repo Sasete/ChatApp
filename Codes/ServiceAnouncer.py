@@ -46,9 +46,9 @@ def brdcst(msg, destination, prefix=""):
     sock.bind(("",5000))
     
     while True:
-        a = b"message"
+        a = str(msg)
         
-        sock.sendto(a, (get_ip(), int('5000')))
+        sock.sendto(bytes(a,"utf8"), (get_ip(), int('5000')))
         
         print("Broadcast working...")
         

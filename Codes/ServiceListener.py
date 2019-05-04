@@ -34,7 +34,9 @@ def recvbroadcast():
         message = message.decode("utf8")
         #Host = readHostName(message)
        ## print(message,clientAdress)
-        writeInTo('ME',clientAdress) #write the adresses and username in a txt file
+
+        print(message,clientAdress)
+        #writeInTo(message,clientAdress) #write the adresses and username in a txt file
 
        
         
@@ -44,7 +46,7 @@ def recvbroadcast():
 def writeInTo(host,adress):
     #save the adress in a txt file
     info = 'USERNAME:',host,', ipADRESS:',adress
-    file = open('adresses.txt','a')
+    file = open('AdressList.txt','a')
     file.write(str(info))
     file.close
     

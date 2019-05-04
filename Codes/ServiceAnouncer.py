@@ -8,6 +8,20 @@ import time
 
 data = {}
 
+def readHostName(JSONname):# return the host name from json file
+    with open(JSONname) as fp:
+        Hostname = json.load(fp)
+        return Hostname.get('username')
+
+def readHostIP(JSONname):# return the host ip from json file
+    with open(JSONname) as fp:
+        Hostip = json.load(fp)
+        return Hostip.get('ip')
+
+
+data['username'] = readHostName("BroadcastFile.json")
+data['ip'] = readHostIP("BroadcastFile.json")
+
 def get_ip():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
@@ -20,22 +34,6 @@ def get_ip():
         s.close()
     return IP
 
-def writeToJson(path, fileName, data):
-    filePathNameWExt = './' + path + '/' + fileName + '.json'
-    with open(filePathNameWExt, 'w') as fp:
-        json.dump(data, fp)
-
-
-def setUsernameIP(Event = None):
-    path = './'
-    fileName = 'BroadcastFile'
-
-
-    data['username'] = username_box.get()
-    data['ip'] = get_ip()
-    writeToJson(path,fileName,data)
-    
-
 
 def brdcst(msg, destination, prefix=""):
 
@@ -45,7 +43,7 @@ def brdcst(msg, destination, prefix=""):
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
     sock.settimeout(0.2)
     
-    sock.bind(("",44444))
+    sock.bind(("",5000))
     
     while True:
         a = b"message"

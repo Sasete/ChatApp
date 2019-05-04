@@ -61,7 +61,7 @@ def broadcast():
     
 
 main = tkinter.Tk()
-main.title("User List")
+main.title("Server")
 
 user_frame = tkinter.Frame(main)
 

@@ -6,6 +6,7 @@ from subprocess import Popen
 import json
 import time
 
+data = {}
 
 def get_ip():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -49,7 +50,7 @@ def brdcst(msg, destination, prefix=""):
     while True:
         a = b"message"
         
-        sock.sendto(a, (get_ip(), int(port_box.get())))
+        sock.sendto(a, (get_ip(), int('5000')))
         
         print("Broadcast working...")
         
@@ -58,7 +59,7 @@ def brdcst(msg, destination, prefix=""):
 def broadcast():
 
     UDP_IP = get_ip()
-    UDP_PORT = port_box.get()
+    UDP_PORT = '5000'
     message = data
     ADDR = (UDP_IP, UDP_PORT)
     print("UDP target IP: ", UDP_IP)

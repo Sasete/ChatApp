@@ -9,9 +9,7 @@ import time
 #Keeping data that will broadcasted
 data = {}
 
-def listener():
-    null
-    # TODO
+
 
 # Gets ip of our computer
 def get_ip():
@@ -56,8 +54,7 @@ def merge():
 
     
 def broadcast():
-    null
-    # TODO
+    Popen('python ServiceAnouncer.py')
 
 
 # FRONT END STARTS HERE
@@ -115,6 +112,6 @@ broadcast_button.pack()
 
 main.resizable(False,False)
 
-
+Popen('python ServiceListener.py')
 tkinter.mainloop()
 

@@ -23,7 +23,7 @@ def readIP():# return the host ip from json file
 targetIP = readIP()
 
 def receive(msg):
-    message_list.insert(tkinter.END,readUsername() + ":" + msg))
+    message_list.insert(tkinter.END,readUsername() + ":" + msg)
 
 def send(event=None):
 

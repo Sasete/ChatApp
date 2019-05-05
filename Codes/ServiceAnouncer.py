@@ -46,6 +46,11 @@ def readHostIP(JSONname):# return the host ip from json file
         return Hostip.get('ip')
 
 
+def readBroadcastIP(JSONname):# return the host name from json file
+    with open(JSONname) as fp:
+        Hostname = json.load(fp)
+        return Hostname.get('globalip')
+
 data['username'] = readHostName("BroadcastFile.json")
 data['ip'] = readHostIP("BroadcastFile.json")
 
@@ -70,12 +75,12 @@ def brdcst(msg, destination, prefix=""):
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
     sock.settimeout(0.2)
     
-    sock.bind(("",5000))
+    sock.bind(('',5000))
     
     while True:
         a = str(msg)
         
-        sock.sendto(bytes(a,"utf8"), (get_ip(), int('5000')))
+        sock.sendto(bytes(a,"utf8"), (readBroadcastIP('IPInfo.json'), int('5000')))
         
         print("Broadcast working...")
         

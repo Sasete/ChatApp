@@ -91,7 +91,7 @@ PORT = 5000
 BUFFER_SIZE = 1024
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect((targetIP, TCP_PORT))
+s.connect((targetIP, PORT))
 
 
 tkinter.mainloop()

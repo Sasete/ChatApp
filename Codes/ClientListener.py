@@ -17,7 +17,10 @@ def readUsername():# return the host name from json file
 def readIP():# return the host ip from json file
     with open('ChatData.json') as fp:
         Hostip = json.load(fp)
-        return Hostip.get('ip')
+        
+        #return Hostip.get('ip')
+
+        return '127.0.0.1'
 
 
 def receiveM():

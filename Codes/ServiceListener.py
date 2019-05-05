@@ -13,7 +13,17 @@ import time
 
 #UDPsocket.bind(('',port))
 
-#buffSize = 1024 
+#buffSize = 1024
+
+mask = '255.255.255.0'
+
+def getBroadcastIP(IP, MASK):
+    
+    host = ipaddress.IPv4Address(IP)
+    net = ipaddress.IPv4Network(IP + '/' + MASK, False)
+    globalIP = net.broadcast_address
+    
+    return globalIP
 
 def readHostName(JSONname):# return the host name from json file
     with open(JSONname) as fp:
@@ -34,7 +44,7 @@ def get_ip():
 
 
 def tryRecieveBRDCST():
-    UDP_IP = get_ip()
+    UDP_IP = getBroadcastIP(get_ip(), mask)
     UDP_PORT = 5000
     
     sock = socket.socket(socket.AF_INET, # Internet

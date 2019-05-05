@@ -5,8 +5,20 @@ import select, socket
 from subprocess import Popen
 import json
 import time
+import ipaddress
 
 data = {}
+
+mask = '255.255.255.0'
+
+def getBroadcastIP(IP, MASK):
+    
+    host = ipaddress.IPv4Address(IP)
+    net = ipaddress.IPv4Network(IP + '/' + MASK, False)
+    globalIP = net.broadcast_address
+    
+    return globalIP
+
 
 def readHostName(JSONname):# return the host name from json file
     with open(JSONname) as fp:
@@ -56,7 +68,7 @@ def brdcst(msg, destination, prefix=""):
 
 def broadcast():
 
-    UDP_IP = get_ip()
+    UDP_IP = getBroadcastIP(get_ip(), mask)
     UDP_PORT = '5000'
     message = data
     ADDR = (UDP_IP, UDP_PORT)
@@ -65,6 +77,8 @@ def broadcast():
     print("Message: ", message)
     print(data)
 
+    print(getBroadcastIP(get_ip(), mask))
+    
     brdcst(message,"utf8", (UDP_IP,UDP_PORT))
 
 

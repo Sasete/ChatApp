@@ -46,12 +46,12 @@ def tryRecieveBRDCST():
         data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
         print ("received message:", data)
 
-        tempdata = str(data).split('\'')
-        if tempdata[0] == 'b"{':
-            newdata = str(data).split('\'')
-            usernameData = newdata[3]
-            ipData = newdata[7]
-            saveUserAdress(data,usernameData,ipData)
+        #tempdata = str(data).split('\'')
+        #if tempdata[0] == 'b"{':
+        newdata = str(data).split('\'')
+        usernameData = newdata[3]
+        ipData = newdata[7]
+        saveUserAdress(data,usernameData,ipData)
 ##        else:
 ##            if len(tempdata[0]) >= 1:
 ##                fl.receive(data)

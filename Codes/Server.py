@@ -88,9 +88,8 @@ def refresh():
     checkUsers()
     
     while i  <= len(Users):
-        if Users[i] != None:
-            userlist.insert(0,readUsername(path,str(Users[i])))
-            print(str(Users[i]))
+        userlist.insert(0,readUsername(path,str(Users[i])))
+        print(str(Users[i]))
         i += 1
             
 

@@ -26,31 +26,31 @@ def receive():
     TCP_IP = target_ip()
     TCP_PORT = 5000
 
-     sock = socket.socket(socket.AF_INET, # Internet
+    socky = socket.socket(socket.AF_INET, # Internet
                          socket.SOCK_DGRAM) # UDP
-    sock.bind((TCP_IP, TCP_PORT))
+    socky.bind((TCP_IP, TCP_PORT))
     
     while True:
-       data, addr = sock.recvfrom(1024)
+        data, addr = sock.recvfrom(1024)
         message_list.insert(tkinter.END, readUsername() + ":" + str(data))
 
 
     
 
-def send( event=None):
+def send(event=None):
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     
-    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
-    sock.settimeout(0.2)
+    #sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    #sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+    #sock.settimeout(0.2)
     
-    sock.bind(('',5000))
+    sock.bind((targetIP,5000))
     
     if message.get() != "":
 
         a = message.get()
-        sock.sendto(bytes(a,"utf8"), (targetIP(, int('5000')))
+        sock.sendto(bytes(a,"utf8"), (targetIP, int('5000')))
       
         message_list.insert(tkinter.END,"You:" + message.get())
         message.set("")

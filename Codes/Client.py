@@ -22,22 +22,8 @@ def readIP():# return the host ip from json file
 
 targetIP = readIP()
 
-def receive():
-    TCP_IP = target_ip()
-    TCP_PORT = 5000
-
-    socky = socket.socket(socket.AF_INET, # Internet
-                         socket.SOCK_DGRAM) # UDP
-    socky.bind((TCP_IP, TCP_PORT))
-    
-    while True:
-        data, addr = sock.recvfrom(1024)
-        message_list.insert(tkinter.END, readUsername() + ":" + str(data))
-        time.sleep(0.5)
-
-take = Thread(target = receive)
-    
-take.start()
+def receive(msg):
+    message_list.insert(tkinter.END,readUsername() + ":" + msg))
 
 def send(event=None):
 

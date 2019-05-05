@@ -6,6 +6,7 @@ from subprocess import Popen
 import json
 import time
 import ipaddress
+from Client.py import receive
 
 #port = 5000
 #UDPsocket = socket(AF_INET, SOCK_DGRAM)
@@ -52,13 +53,14 @@ def tryRecieveBRDCST():
         data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
         print ("received message:", data)
 
-
-        newdata = str(data).split('\'')
-        usernameData = newdata[3]
-        ipData = newdata[7]
-
-        saveUserAdress(data,usernameData,ipData)
-        
+        tempdata = str(data).split('\'')
+        if tempdata[0] == 'b':
+            newdata = str(data).split('\'')
+            usernameData = newdata[3]
+            ipData = newdata[7]
+            saveUserAdress(data,usernameData,ipData)
+        else:
+            receive(data)
         
 
 

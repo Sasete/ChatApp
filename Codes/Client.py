@@ -20,40 +20,14 @@ def readIP():# return the host ip from json file
         return Hostip.get('ip')
 
 
-targetIP = readIP()
 
 def receive():
-    TCP_IP = target_ip()
-    TCP_PORT = 5000
-
-    socky = socket.socket(socket.AF_INET, # Internet
-                         socket.SOCK_DGRAM) # UDP
-    socky.bind((TCP_IP, TCP_PORT))
-    
-    while True:
-        data, addr = sock.recvfrom(1024)
-        message_list.insert(tkinter.END, readUsername() + ":" + str(data))
-        time.sleep(0.5)
-
-take = Thread(target = receive)
-    
-take.start()
+    msg = socky.recv(BUFFER_SIZE)
+    message_list.insert(tkinter.END,(readUsername(),":",msg))
 
 def send(event=None):
-
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    
-    #sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    #sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
-    #sock.settimeout(0.2)
-    
-    sock.bind(('',5001))
-    
     if message.get() != "":
-
-        a = message.get()
-        sock.sendto(bytes(a,"utf8"), (targetIP, int('5000')))
-      
+        socky.send(message.get())
         message_list.insert(tkinter.END,"You:" + message.get())
         message.set("")
 
@@ -110,3 +84,13 @@ print("Chat has been started with ", readUsername(),readIP())
 
 tkinter.mainloop()
 
+
+
+TCP_IP = readIP()
+TCP_PORT = 5000
+BUFFER_SIZE = 1024
+
+socky = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+socky.connect((TCP_IP,TCP_PORT))
+
+receive()

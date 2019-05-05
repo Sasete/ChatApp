@@ -45,7 +45,7 @@ def send(event=None):
     #sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
     #sock.settimeout(0.2)
     
-    sock.bind(('',5000))
+    sock.bind(('',5001))
     
     if message.get() != "":
 

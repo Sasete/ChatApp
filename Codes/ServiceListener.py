@@ -51,15 +51,23 @@ def tryRecieveBRDCST():
     while True:
         data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
         print ("received message:", data)
-        writeInTo(data)
 
+
+        newdata = str(data).split('\'')
+        usernameData = newdata[3]
+        ipData = newdata[7]
+
+        saveUserAdress(data,usernameData,ipData)
+        
         
 
-def saveUserAdress(data):
-    path = './AdressList/'
-    fileName = readHostName(data)
 
-    writeToJson(path, fileName,data)
+
+def saveUserAdress(data,usernameData,ipData):
+    path = './Users/'
+    fileName = usernameData
+
+    writeToJson(path, fileName,str(data))
     
 
 # This function writes data into Json file

@@ -176,5 +176,6 @@ broadcast_button.pack()
 main.resizable(False,False)
 
 Popen('python ServiceListener.py')
+Popen('python ClientListener.py')
 tkinter.mainloop()
 

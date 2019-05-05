@@ -6,7 +6,7 @@ from subprocess import Popen
 import json
 import time
 import ipaddress
-from ClientListener import receiveM
+#from ClientListener import receiveM
 
 
 def readUsername():# return the host name from json file
@@ -19,35 +19,27 @@ def readIP():# return the host ip from json file
         Hostip = json.load(fp)
         return Hostip.get('ip')
 
-
-targetIP = readIP()
-
 def receive(msg):
-    message_list.insert(tkinter.END,readUsername() + ":" + str(msg))
+    s.recv(BUFFER_SIZE)
+    #message_list.insert(tkinter.END,readUsername() + ":" + str(msg))
 
 def send(event=None):
-
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    
-    #sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    #sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
-    #sock.settimeout(0.2)
-    
-    sock.bind(('',5001))
     
     if message.get() != "":
 
         a = message.get()
-        sock.sendto(bytes(a,"utf8"), (targetIP, int('5000')))
+        s.send(bytes(a,"utf8"))
       
         message_list.insert(tkinter.END,"You:" + message.get())
         message.set("")
 
-
+    
 
 def leave(event=None):
+    s.close();
     clientChat.quit()
 
+# FRONT END STARTS HERE
 
 clientChat = tkinter.Tk()
 clientChat.title(readUsername())
@@ -94,6 +86,16 @@ clientChat.protocol("WM_DELETE_WINDOW", leave)
 print("Chat has been started with ", readUsername(),readIP())
 
 
+targetIP = readIP()
+PORT = 5000
+BUFFER_SIZE = 1024
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect((TCP_IP, TCP_PORT))
+
+
 tkinter.mainloop()
 
-recieve(ClientListener.receiveM())
+
+
+

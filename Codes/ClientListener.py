@@ -8,6 +8,7 @@ import time
 import ipaddress
 
 
+
 def readUsername():# return the host name from json file
     with open('ChatData.json') as fp:
         Hostname = json.load(fp)
@@ -19,12 +20,6 @@ def readIP():# return the host ip from json file
         return Hostip.get('ip')
 
 
-targetIP = readIP()
-TCP_PORT = 5001
-sockt = socket.socket(socket.AF_INET, # Internet
-                         socket.SOCK_DGRAM) # TCP
-sockt.bind(('', TCP_PORT))
-    
 def receiveM():
     while True:
         data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
@@ -33,3 +28,22 @@ def receiveM():
 
 
 
+
+
+targetIP = readIP()
+PORT = 5000
+BUFFER_SIZE = 1024
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.bind(targetIP,PORT)
+sock.listen(1)
+
+conn, addr = s.accept()
+
+print 'Connection address:' addr
+while 1:
+    data = conn.recv(BUFFER_SIZE)
+    if not data: break
+    print "received data:", data
+    conn.send(data)
+conn.close

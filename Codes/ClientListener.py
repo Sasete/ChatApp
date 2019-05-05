@@ -35,12 +35,12 @@ PORT = 5000
 BUFFER_SIZE = 1024
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.bind(targetIP,PORT)
-sock.listen(1)
+sock.bind(('127.0.0.1',PORT))
+sock.listen(4)
 
-conn, addr = s.accept()
+conn, addr = sock.accept()
 
-print ('Connection address:' addr)
+print ('Connection address:', addr)
 while 1:
     data = conn.recv(BUFFER_SIZE)
     if not data: break

@@ -6,7 +6,7 @@ from subprocess import Popen
 import json
 import time
 import ipaddress
-
+from ClientListener import receiveM
 
 
 def readUsername():# return the host name from json file
@@ -23,7 +23,7 @@ def readIP():# return the host ip from json file
 targetIP = readIP()
 
 def receive(msg):
-    message_list.insert(tkinter.END,readUsername() + ":" + msg)
+    message_list.insert(tkinter.END,readUsername() + ":" + str(msg))
 
 def send(event=None):
 
@@ -95,3 +95,5 @@ print("Chat has been started with ", readUsername(),readIP())
 
 
 tkinter.mainloop()
+
+recieve(ClientListener.receiveM())

@@ -6,15 +6,8 @@ from subprocess import Popen
 import json
 import time
 import ipaddress
-from Client import receive
+##import Client as fl
 
-#port = 5000
-#UDPsocket = socket(AF_INET, SOCK_DGRAM)
-#UDPsocket.setsockopt(SOL_SOCKET,SO_REUSEADDR,1)
-
-#UDPsocket.bind(('',port))
-
-#buffSize = 1024
 
 
 def readBroadcastIP(JSONname):# return the host name from json file
@@ -46,7 +39,7 @@ def tryRecieveBRDCST():
     UDP_PORT = 5000
     
     sock = socket.socket(socket.AF_INET, # Internet
-                         socket.SOCK_DGRAM) # UDP
+                         socket.SOCK_DGRAM) # TCP
     sock.bind((UDP_IP, UDP_PORT))
     
     while True:
@@ -54,14 +47,14 @@ def tryRecieveBRDCST():
         print ("received message:", data)
 
         tempdata = str(data).split('\'')
-        if tempdata[0] == 'b':
+        if tempdata[0] == 'b"{':
             newdata = str(data).split('\'')
             usernameData = newdata[3]
             ipData = newdata[7]
             saveUserAdress(data,usernameData,ipData)
-        else:
-            if len(tempdata[0]) >= 1:
-                receive(data)
+##        else:
+##            if len(tempdata[0]) >= 1:
+##                fl.receive(data)
         
 
 

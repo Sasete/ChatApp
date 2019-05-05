@@ -41,7 +41,7 @@ def get_ip():
 
 
 def tryRecieveBRDCST():
-    UDP_IP = readBroadcastIP('IPInfo.json')
+    UDP_IP = get_ip()
     UDP_PORT = 5000
     
     sock = socket.socket(socket.AF_INET, # Internet

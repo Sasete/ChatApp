@@ -10,7 +10,6 @@ import ipaddress
 #Keeping data that will broadcasted
 data = {}
 
-dataInfo = {}
 
 
 # Gets ip of our computer

@@ -30,9 +30,9 @@ def receive():
                          socket.SOCK_DGRAM) # UDP
     socky.bind((TCP_IP, TCP_PORT))
     
-    while True:
-        data, addr = sock.recvfrom(1024)
-        message_list.insert(tkinter.END, readUsername() + ":" + str(data))
+    #while True:
+    data, addr = sock.recvfrom(1024)
+    message_list.insert(tkinter.END, readUsername() + ":" + str(data))
 
 
     
@@ -104,5 +104,6 @@ clientChat.protocol("WM_DELETE_WINDOW", leave)
 
 
 print("Chat has been started with ", readUsername(),readIP())
+
 
 tkinter.mainloop()

@@ -79,7 +79,7 @@ def brdcst(msg, destination, prefix=""):
         
         print("Broadcast working...")
         
-        time.sleep(0.2)
+        time.sleep(3.0)
 
 def broadcast():
 

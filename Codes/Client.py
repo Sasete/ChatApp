@@ -1,22 +1,59 @@
 from socket import AF_INET, socket, SOCK_STREAM
 from threading import Thread
 import tkinter
+import select, socket
+from subprocess import Popen
+import json
+import time
+import ipaddress
+
+
+
+def readUsername():# return the host name from json file
+    with open('ChatData.json') as fp:
+        Hostname = json.load(fp)
+        return Hostname.get('username')
+
+def readIP():# return the host ip from json file
+    with open('ChatData.json') as fp:
+        Hostip = json.load(fp)
+        return Hostip.get('ip')
+
+
+targetIP = readIP()
 
 def receive():
+    TCP_IP = target_ip()
+    TCP_PORT = 5000
+
+     sock = socket.socket(socket.AF_INET, # Internet
+                         socket.SOCK_DGRAM) # UDP
+    sock.bind((TCP_IP, TCP_PORT))
+    
     while True:
-        try:
-            msg = client_socket.recv(BUFSIZ).decode("utf8")
-            msg_list.insert(tkinter.END, msg)
-        except OSError:  # Possibly client has left the chat.
-            break
+       data, addr = sock.recvfrom(1024)
+        message_list.insert(tkinter.END, readUsername() + ":" + str(data))
+
 
     
 
-def send(event=None):
+def send( event=None):
+
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+    sock.settimeout(0.2)
+    
+    sock.bind(('',5000))
+    
     if message.get() != "":
+
+        a = message.get()
+        sock.sendto(bytes(a,"utf8"), (targetIP(, int('5000')))
+      
         message_list.insert(tkinter.END,"You:" + message.get())
         message.set("")
-#        client_socket.send(bytes(msg, "utf8"))
 
 
 
@@ -25,7 +62,7 @@ def leave(event=None):
 
 
 clientChat = tkinter.Tk()
-clientChat.title("Chat")
+clientChat.title(readUsername())
 
 message_frame = tkinter.Frame(clientChat)
 message = tkinter.StringVar()
@@ -64,5 +101,8 @@ clientChat.protocol("WM_DELETE_WINDOW", leave)
 
 #receive_thread = Thread(target = receive)
 #receive_thread.start()
+
+
+print("Chat has been started with ", readUsername(),readIP())
 
 tkinter.mainloop()

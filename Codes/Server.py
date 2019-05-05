@@ -13,6 +13,8 @@ data = {}
 
 Users = []
 
+chatData = {}
+
 # Gets ip of our computer
 def get_ip():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -31,6 +33,12 @@ def readUsername(path, JSONname):# return the host name from json file
     with open(filePathName, 'r') as fp:
         Hostname = json.load(fp)
         return Hostname.get('username')
+
+def readUserIP(path, JSONname):# return the host name from json file
+    filePathName = './' + path + '/' + JSONname
+    with open(filePathName, 'r') as fp:
+        Hostname = json.load(fp)
+        return Hostname.get('ip')
 
 # This function writes data into Json file
 def writeToJson(path, fileName, data):
@@ -84,12 +92,28 @@ def refresh():
             print(str(Users[i]))
         i += 1
             
+
+def getUserInfo():
+    nick = userlist.get(tkinter.ACTIVE)
+    print(nick)
+    path = 'Users'
+    nick += '.json'
+    name = readUsername(path, nick)
+    ip = readUserIP(path, nick)
+
+    chatData['username'] = name
+    chatData['ip'] = ip
+
+    fileName = nick
+    
+    writeToJson('/.','ChatData',chatData)
     
 
-
 def merge():
-    null
-    # TODO
+    getUserInfo()
+    
+
+    Popen('python Client.py')
 
     
 def broadcast():

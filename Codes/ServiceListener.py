@@ -66,8 +66,10 @@ def tryRecieveBRDCST():
 def saveUserAdress(data,usernameData,ipData):
     path = './Users/'
     fileName = usernameData
-
-    writeToJson(path, fileName,str(data))
+    newData = {}
+    newData['username'] = usernameData
+    newData['ip'] = ipData
+    writeToJson(path, fileName,newData)
     
 
 # This function writes data into Json file

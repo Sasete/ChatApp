@@ -6,11 +6,12 @@ from subprocess import Popen
 import json
 import time
 import ipaddress
+import os
 
 #Keeping data that will broadcasted
 data = {}
 
-
+Users = []
 
 # Gets ip of our computer
 def get_ip():
@@ -24,7 +25,12 @@ def get_ip():
     finally:
         s.close()
     return IP
-
+    
+def readUsername(path, JSONname):# return the host name from json file
+    filePathName = './' + path + '/' + JSONname
+    with open(filePathName, 'r') as fp:
+        Hostname = json.load(fp)
+        return Hostname.get('username')
 
 # This function writes data into Json file
 def writeToJson(path, fileName, data):
@@ -43,10 +49,42 @@ def setUsernameIP(Event = None):
     data['ip'] = get_ip()
     writeToJson(path,fileName,data)
     
+def checkUsers():
+
+    path = './Users/'
+
+    
+
+    
+    for r,d,f in os.walk(path):
+        for file in f:
+            if '.json' in file:
+                #fileName1 = str(f).split('\'')
+                #fileName2 = fileName1[1].split('.')
+                Users.append(file)
+                #print(fileName1[1])
+
+
+
 
 def refresh():
-    null
-    # TODO
+    path = './Users/'
+ 
+    
+    userlist.delete(0, 'end')
+    Users.clear()
+    
+    i = 0
+       
+    checkUsers()
+    
+    while i  <= len(Users):
+        if Users[i] != None:
+            userlist.insert(0,readUsername(path,str(Users[i])))
+            print(str(Users[i]))
+        i += 1
+            
+    
 
 
 def merge():

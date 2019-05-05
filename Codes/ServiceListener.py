@@ -15,16 +15,13 @@ import ipaddress
 
 #buffSize = 1024
 
-mask = '255.255.255.0'
 
-def getBroadcastIP(IP, MASK):
-    
-    host = ipaddress.IPv4Address(IP)
-    net = ipaddress.IPv4Network(IP + '/' + MASK, False)
-    globalIP = net.broadcast_address
-    
-    return globalIP
+def readBroadcastIP(JSONname):# return the host name from json file
+    with open(JSONname) as fp:
+        Hostname = json.load(fp)
+        return Hostname.get('globalip')
 
+    
 def readHostName(JSONname):# return the host name from json file
     with open(JSONname) as fp:
         Hostname = json.load(fp)
@@ -44,7 +41,7 @@ def get_ip():
 
 
 def tryRecieveBRDCST():
-    UDP_IP = getBroadcastIP(get_ip(), mask)
+    UDP_IP = readBroadcastIP('IPInfo.json')
     UDP_PORT = 5000
     
     sock = socket.socket(socket.AF_INET, # Internet
@@ -71,12 +68,6 @@ def writeToJson(path, fileName, data):
     with open(filePathNameWExt, 'w') as fp:
         json.dump(data, fp)
      
-
-
-def readHostName(JSONname):# return the host name from json file
-    with open(JSONname) as jison_file:
-        Hostname = json.load(json_file)
-        return Hostname.get('username')
 
 
 def recvbroadcast():

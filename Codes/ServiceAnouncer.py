@@ -11,14 +11,29 @@ data = {}
 
 mask = '255.255.255.0'
 
+dataInfo = {}
+    
 def getBroadcastIP(IP, MASK):
     
     host = ipaddress.IPv4Address(IP)
     net = ipaddress.IPv4Network(IP + '/' + MASK, False)
     globalIP = net.broadcast_address
+
+    dataInfo['globalip'] = str(globalIP)
+    path = './'
+    fileName = 'IPInfo'
+    writeToJson(path,fileName,dataInfo)
+
     
     return globalIP
 
+
+# This function writes data into Json file
+def writeToJson(path, fileName, data):
+    filePathNameWExt = './' + path + '/' + fileName + '.json'
+    with open(filePathNameWExt, 'w') as fp:
+        json.dump(data, fp)
+   
 
 def readHostName(JSONname):# return the host name from json file
     with open(JSONname) as fp:

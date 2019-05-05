@@ -56,6 +56,7 @@ def setUsernameIP(Event = None):
     data['username'] = username_box.get()
     data['ip'] = get_ip()
     writeToJson(path,fileName,data)
+    print("Username has been set: ", username_box.get())
     
 def checkUsers():
 

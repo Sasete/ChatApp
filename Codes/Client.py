@@ -106,4 +106,15 @@ clientChat.protocol("WM_DELETE_WINDOW", leave)
 print("Chat has been started with ", readUsername(),readIP())
 
 
-tkinter.mainloop()
+#tkinter.mainloop()
+
+
+if __name__ == '__main__':
+    take = Thread(target = receive, args = ("take", 1))
+    give = Thread(target = tkinter.mainloop(), args = ("give", 1))
+
+
+
+
+    take.start()
+    give.start()
